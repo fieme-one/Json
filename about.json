@@ -1,0 +1,8 @@
+[
+  {
+    "lang": "en",
+    "content": [
+      "<h1>About Leaf</h1>\n<section>Leaf is a modern earning platform built to create opportunities for people through simple online tasks. Our mission is to give users in Ethiopia an accessible, fair, and secure way to earn money directly from the web without needing complicated tools or advanced technical skills.</section>\n<section>At its core, Leaf is more than just an app—it’s a digital workspace where users can complete different types of tasks, participate in activities, and engage with content while being rewarded for their efforts. Each task is designed to be simple, transparent, and meaningful, ensuring that users know exactly what they are working on and how they are rewarded.</section>\n<section>To maintain trust and fairness, Leaf follows strict rules:</section>\n<ul><li>One account per device,</li><li>No cheating or misuse of third-party tools,</li><li>Strong protection of user identity and payment details,</li><li>Monthly payments processed with care and accuracy.</li></ul>\n<section>Leaf uses secure technologies like Firebase and Supabase to store data safely, prevent fraud, and protect the community. We also integrate personalized ads so users can experience a tailored platform while keeping their information private.</section>\n<section>Our vision is to build a platform where technology works for people—helping them grow, stay productive, and turn their time online into real-world rewards.</section>\n<section>With Leaf, every task completed is a step toward opportunity.</section>"
+    ]
+  }
+]
