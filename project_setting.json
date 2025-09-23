@@ -1,0 +1,130 @@
+[{
+ "apikey" : {
+    "supabase_api_key":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhlYnRsdWR2dGZtanRmZmVvcXR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgzMjE5NjEsImV4cCI6MjA3Mzg5Nzk2MX0.mNpt5KK51xdvqifp1Beg_UaQ0giPWSHIK2oN_xrEoak",
+    "supabase_pro_url":"https://xebtludvtfmjtffeoqtw.supabase.co"
+  },
+ "sql_logic" : {
+   "rules" : "-- ======================================
+-- Table 1: users_data
+-- ======================================
+create table users_data (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid unique not null, -- auth.uid()
+  email text unique not null,
+  first_name text,
+  last_name text,
+  balance numeric(12,2) default 0,
+  img text,
+  task int default 0,
+  taskdone int default 0,
+  task_done_today int default 0,
+  token_sensetion text,
+  created_at timestamp with time zone default timezone('utc', now()),
+  updated_at timestamp with time zone default timezone('utc', now())
+);
+
+-- Enable RLS
+alter table users_data enable row level security;
+
+-- Policies for users_data
+-- Select own row
+create policy "Select own user_data"
+on users_data
+for select
+to authenticated
+using (auth.uid() = user_id);
+
+-- Insert own row
+create policy "Insert own user_data"
+on users_data
+for insert
+to authenticated
+with check (auth.uid() = user_id);
+
+-- Update own row
+create policy "Update own user_data"
+on users_data
+for update
+to authenticated
+using (auth.uid() = user_id)
+with check (auth.uid() = user_id);
+
+-- Trigger to auto-update updated_at
+create function update_users_updated_at()
+returns trigger as $$
+begin
+  new.updated_at = now();
+  return new;
+end;
+$$ language plpgsql;
+
+create trigger trigger_users_updated_at
+before update on users_data
+for each row
+execute function update_users_updated_at();
+
+
+-- ======================================
+-- Table 2: user_plans
+-- ======================================
+create table user_plans (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null, -- auth.uid()
+  plan int not null,
+  plansearning int not null,
+  spenttime numeric(5,2) not null,
+  video int not null,
+  planid text not null,
+  task int not null,
+  created_at timestamp with time zone default timezone('utc', now()),
+  updated_at timestamp with time zone default timezone('utc', now())
+);
+
+-- Enable RLS
+alter table user_plans enable row level security;
+
+-- Policies for user_plans
+-- Insert only own
+create policy "Insert own plan"
+on user_plans
+for insert
+to authenticated
+with check (auth.uid() = user_id);
+
+-- Select only own
+create policy "Select own plans"
+on user_plans
+for select
+to authenticated
+using (auth.uid() = user_id);
+
+-- Update only own AND only if 30 days passed
+create policy "Update own plan every 30 days"
+on user_plans
+for update
+to authenticated
+using (
+    auth.uid() = user_id
+)
+with check (
+    auth.uid() = user_id
+    AND (updated_at <= now() - interval '30 days')
+);
+
+-- Trigger to auto-update updated_at
+create function update_plans_updated_at()
+returns trigger as $$
+begin
+  new.updated_at = now();
+  return new;
+end;
+$$ language plpgsql;
+
+create trigger trigger_plans_updated_at
+before update on user_plans
+for each row
+execute function update_plans_updated_at();"
+ }"
+ 
+}
+]
