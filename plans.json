@@ -1,0 +1,32 @@
+[
+  {
+    "plan": 1,
+    "plansEarning":  1000,
+    "spentTime": 0.30,
+    "video": 1,
+    "planId": "first_plan",
+    "task": 1,
+    "mem_level":"Start Up",
+    "apply_id":"one_"
+  },
+  {
+    "plan":  2,
+    "plansEarning":  1500,
+    "spentTime": 1.0 ,
+    "video": 2 ,
+    "planId": "second_plan",
+    "task": 2 ,
+    "mem_level":"Advanced",
+        "apply_id":"two_"
+  },
+  {
+    "mem_level": "Pro",
+    "plan":  3,
+    "plansEarning":  2000,
+    "spentTime": 1.30 ,
+    "video": 3 ,
+    "planId": "third_plan",
+    "task": 3,
+    "apply_id":"three_"
+  }
+]
